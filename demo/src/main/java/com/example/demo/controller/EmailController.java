@@ -2,10 +2,9 @@ package com.example.demo.controller;
 
 
 import com.example.demo.config.SmsRequest;
-import com.example.demo.dto.SmsDto;
+import com.example.demo.dto.EmailDto;
+import com.example.demo.service.EmailService;
 import com.example.demo.service.TwilioServiceImpl;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,19 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/sms")
-public class SmsController {
+@RequestMapping("/email")
+public class EmailController {
 
-    private final TwilioServiceImpl twilioService ;
+    private final EmailService emailService ;
 
     @Autowired
-    public SmsController(TwilioServiceImpl twilioService) {
-        this.twilioService = twilioService;
+    public EmailController(EmailService emailService) {
+        this.emailService = emailService;
     }
 
     @PostMapping
-    public void sendSms(@RequestBody SmsRequest request){
-        twilioService.sendSms(request);
+    public void sendEmail(@RequestBody EmailDto email){
+        emailService.sendSimpleMessage(email);
     }
 
 
